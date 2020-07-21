@@ -1,4 +1,11 @@
 body { background: #f4dc26; }
+body { font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: 12pt; }
+
+.searchbox { position: relative; width: 70%; margin: 2em auto; }
+.search    { width: 100%; height: 2em; font-size: 16pt; text-align: center; }
+
+.pile { display:flex; flex-flow: row wrap; justify-content: center; }
+.card { position: relative; width: 15em; margin: 10px; border: solid grey 1px; border-radius: 2px; box-shadow: rgba(126, 125, 123, 0.288) 3px 3px; }
 
 .pokemon-face div { position:fixed; width: 0; }
 
