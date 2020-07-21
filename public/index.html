@@ -1,13 +1,49 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokemon</title>
-    <link rel="stylesheet" type="text/css" href="../src/stylesheets/index.css">
-  </head>
-  <body>
-    <noscript>Necesitas activar JavaScript en tu navegador (o un navegador más moderno).</noscript>
-    <div id="root"></div>
-  </body>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pokemon</title>
+  <link rel="stylesheet" type="text/css" href="../src/stylesheets/index.css">
+</head>
+
+<body>
+  <noscript>Necesitas activar JavaScript en tu navegador (o un navegador más moderno).</noscript>
+  <div id="root">
+    <section class="header">
+      <div class="searchbox">
+        <input class="search" type="text" placeholder="Filtra pokemons por nombre" />
+      </div>
+    </section>
+    <section class="pile">
+      <article class="card">
+        <div class="greypart">
+          <div class="photo">
+            <img src="none" alt="IMG" />
+          </div>
+          <span class="id">
+            ID / 2
+          </span>
+        </div>
+        <div class="whitepart">
+          <div class="name">Bulbasur</div>
+          <div class="kind"><span class="">kind1</span><span class="">kind2</span></div>
+          <div class="evolution">
+            <div class="ttile">Evoluciona de:</div>
+            <div class="parent">EVOL</div>
+          </div>
+        </div>
+      </article>
+    </section>
+  </div>
+
+  <div class="pokemon-face">
+    <div class="left ear"></div>
+    <div class="right ear"></div>
+    <div class="left cheek"></div>
+    <div class="right cheek"></div>
+  </div>
+</body>
+
 </html>

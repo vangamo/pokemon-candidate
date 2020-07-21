@@ -1,1 +1,31 @@
 body { background: #f4dc26; }
+body { font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: 12pt; }
+
+.searchbox { position: relative; width: 70%; margin: 2em auto; }
+.search    { width: 100%; height: 2em; font-size: 16pt; text-align: center; }
+
+.pile { display:flex; flex-flow: row wrap; justify-content: center; width: 70%; margin: 2em auto }
+.card { position: relative; width: 15em; margin: 10px; border: solid grey 1px; border-radius: 2px; box-shadow: rgba(126, 125, 123, 0.288) 3px 3px; }
+
+.card > div { box-sizing: border-box; height: 10em; }
+.card .greypart  { background-color: grey; position: relative; }
+.card .whitepart { background-color: white; padding: 1em; }
+
+.card .photo     { height: 50%; }
+.card .id        { position: absolute; bottom: 0; padding: 0.2em; background-color: lightgrey; }
+.card .name      { margin: 0.2em; font-size: 16pt; font-weight: bold; }
+.card .kind      { margin: 0.4em 0.2em; font-size: 10pt; color: lightgrey; }
+.card .kind span { margin-right: 0.2em; border: solid lightgrey 1px; border-radius: 3px; padding: 0.1em 0.2em; text-transform: uppercase; }
+.card .evolution { margin: 0.5em 0.2em; border-left: solid red 3px; padding: 0.2em; }
+.card .parent    { font-size: 16pt; text-transform: lowercase; }
+
+.pokemon-face div { position:fixed; width: 0; }
+
+.ear   { top:     0;   border-top: solid 6vw black;  }
+.cheek { bottom: -8vw; border:     solid red 8vw; border-radius: 8vw; }
+
+.left.ear  { left:  0; border-right: solid 6vw transparent; }
+.right.ear { right: 0; border-left:  solid 6vw transparent; }
+
+.left.cheek   { left: -8vw; }
+.right.cheek { right: -8vw; }
