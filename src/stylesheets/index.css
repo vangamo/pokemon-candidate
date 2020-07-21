@@ -1,1 +1,12 @@
 body { background: #f4dc26; }
+
+.pokemon-face div { position:fixed; width: 0; }
+
+.ear   { top:     0;   border-top: solid 6vw black;  }
+.cheek { bottom: -8vw; border:     solid red 8vw; border-radius: 8vw; }
+
+.left.ear  { left:  0; border-right: solid 6vw transparent; }
+.right.ear { right: 0; border-left:  solid 6vw transparent; }
+
+.left.cheek   { left: -8vw; }
+.right.cheek { right: -8vw; }
