@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Card from './Card';
-import '../stylesheets/Pile.css';
+import '../stylesheets/Pile.scss';
 
 class Pile extends Component {
   render() {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../stylesheets/Card.css';
+import '../stylesheets/Card.scss';
 
 class App extends Component {
   render() {
