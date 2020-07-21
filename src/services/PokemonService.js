@@ -14,7 +14,13 @@ class PokemonService {
   }
 
   getPokemons( name ) {
+    name = name.trim().toLowerCase();
+
     let apiURL = BASE_URL;
+    if( name !== '' ) {
+      apiURL += name + '/';
+    }
+
     apiURL += '?limit=' + LIMIT;
 
     return fetch( apiURL )
