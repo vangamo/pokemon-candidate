@@ -1,2 +1,4 @@
-.searchbox { position: relative; width: 70%; margin: 2em auto; }
-.search    { width: 100%; height: 2em; font-size: 16pt; text-align: center; }
+@import 'consts';
+
+.searchbox { position: relative; width: $mainSectionWidth; margin: 2em auto; }
+.search    { width: 100%; height: 2em; font-size: $searchFontSize; text-align: center; }

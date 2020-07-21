@@ -1,12 +1,14 @@
-body { background: #f4dc26; }
+@import 'consts';
+
+body { background: $yellowPikachu; }
 
 .pokemon-face div { position:fixed; width: 0; }
 
-.ear   { top:     0;   border-top: solid 6vw black;  }
-.cheek { bottom: -8vw; border:     solid red 8vw; border-radius: 8vw; }
+.ear   { top:              0; border-top: solid $earSize black;  }
+.cheek { bottom: -$cheekSize; border:     solid $redPikachu $cheekSize; border-radius: $cheekSize; }
 
-.left.ear  { left:  0; border-right: solid 6vw transparent; }
-.right.ear { right: 0; border-left:  solid 6vw transparent; }
+.left.ear  { left:  0; border-right: solid $earSize transparent; }
+.right.ear { right: 0; border-left:  solid $earSize transparent; }
 
-.left.cheek   { left: -8vw; }
-.right.cheek { right: -8vw; }
+.left.cheek   { left: -$cheekSize; }
+.right.cheek { right: -$cheekSize; }
