@@ -6,8 +6,8 @@ import '../stylesheets/App.scss';
 class App extends Component {
   render() {
     return (
-    <div class="app">
-      <section class="header">
+    <div className="app">
+      <section className="header">
         <SearchBox/>
       </section>
       <Pile/>

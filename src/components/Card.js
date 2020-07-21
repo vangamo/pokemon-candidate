@@ -4,21 +4,21 @@ import '../stylesheets/Card.scss';
 class App extends Component {
   render() {
     return (
-      <article class="card">
-        <div class="greypart">
-          <div class="photo">
+      <article className="card">
+        <div className="greypart">
+          <div className="photo">
             <img src="none" alt="IMG" />
           </div>
-          <span class="id">
+          <span className="id">
             ID / 2
           </span>
         </div>
-        <div class="whitepart">
-          <div class="name">{this.props.id}</div>
-          <div class="kind"><span class="">kind1</span><span class="">kind2</span></div>
-          <div class="evolution">
-            <div class="ttile">Evoluciona de:</div>
-            <div class="parent">EVOL</div>
+        <div className="whitepart">
+          <div className="name">{this.props.id}</div>
+          <div className="kind"><span className="">kind1</span><span className="">kind2</span></div>
+          <div className="evolution">
+            <div className="ttile">Evoluciona de:</div>
+            <div className="parent">EVOL</div>
           </div>
         </div>
       </article>

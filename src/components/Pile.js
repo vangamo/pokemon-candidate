@@ -5,7 +5,7 @@ import '../stylesheets/Pile.scss';
 class Pile extends Component {
   render() {
     return (
-      <section class="pile">
+      <section className="pile">
         <Card id="Bulbasaur"></Card>
       </section>
     );

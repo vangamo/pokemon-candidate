@@ -4,8 +4,8 @@ import '../stylesheets/SearchBox.scss';
 class SearchBox extends Component {
   render() {
     return (
-      <div class="searchbox">
-        <input class="search" type="text" placeholder="Filtra pokemons por nombre" />
+      <div className="searchbox">
+        <input className="search" type="text" placeholder="Filtra pokemons por nombre" />
       </div>
     );
   }
