@@ -8,6 +8,7 @@ class SearchBox extends Component {
     this.state = {
       searchText: props.searchText
     }
+    this.keyPressedTimeout = null;
 
     this.handleKeyPressed = this.handleKeyPressed.bind(this);
     this.handleChange     = this.handleChange.bind(this);
@@ -24,9 +25,20 @@ class SearchBox extends Component {
 
   handleKeyPressed( event ) {
     var code = (event.keyCode ? event.keyCode : event.which);
+
+    if( this.keyPressedTimeout != null ) {
+      clearTimeout( this.keyPressedTimeout );
+    }
+
     if( code===13 ) {
       event.preventDefault();
       this.launchSearch();
+    }
+    else {
+      this.keyPressedTimeout = setTimeout(
+        () => { this.launchSearch(); },
+        100
+        );
     }
   }
   
