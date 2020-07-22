@@ -24,10 +24,10 @@ function capitalize( text ) {
  * @param {int} id It's the numeric ID (set by API) of the Pokemon to fetch.
  */
 
-const useFetchPokemon = (id) => {
+const useFetchPokemon = (id, name) => {
   const [pokemonData, setPokemonData] = useState({
     id: id,
-    name: '',
+    name: capitalize(name),
     imageURI: '',
     kind: [],
     evolvesFrom: null
@@ -70,7 +70,7 @@ const useFetchPokemon = (id) => {
  */
 
 const Card = (props) => {
-  const pokemonData = useFetchPokemon( props.id );
+  const pokemonData = useFetchPokemon( props.id, props.name );
 
   const kindList = pokemonData.kind.map( kind => (
     <span key={kind}>{kind}</span>
