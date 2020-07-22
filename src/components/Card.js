@@ -2,9 +2,27 @@ import React, { useState, useEffect } from 'react';
 import PokemonService from '../services/PokemonService';
 import '../stylesheets/Card.scss';
 
+/**
+ * Helper function to capitalize a string.
+ * I.E.
+ *   capitalize( 'text' )  --> 'Text'
+ * 
+ * @param {String} text 
+ */
+
 function capitalize( text ) {
   return text.charAt(0).toUpperCase() + text.substr(1).toLowerCase()
 }
+
+
+/**
+ * Hook to double fetch the Pokemon data using PokemonService.
+ * It has to take Pokemon data from two endpoints:
+ *  - /pokemon/         For the sprite image and kind of the Pokemon
+ *  - /pokemon-species/ For the evolution data
+ * 
+ * @param {int} id It's the numeric ID (set by API) of the Pokemon to fetch.
+ */
 
 const useFetchPokemon = (id) => {
   const [pokemonData, setPokemonData] = useState({
@@ -17,18 +35,39 @@ const useFetchPokemon = (id) => {
 
   useEffect(() => {
     PokemonService.getInstance()
-      .getPokemon( id )
+      .getPokemonData( id )
       .then( data => {
         setPokemonData({
+          ...pokemonData,
           ...data,
           name: capitalize( data.name )
         });
       })
       .catch(error => {console.error(error);});
+
+      PokemonService.getInstance()
+        .getPokemonEvolution( id )
+        .then( data => {
+          setPokemonData({
+            ...pokemonData,
+            ...data
+          });
+        })
+        .catch(error => {console.error(error);});
   });
 
   return pokemonData;
 }
+
+
+/**
+ * Prints a single card with the Pokemon data.
+ * It has two parts:
+ *  - Grey part with the image and ID.
+ *  - White part with the name, type and evolves from info.
+ * 
+ * @param {*} props 
+ */
 
 const Card = (props) => {
   const pkId = props.uri.substr(-2,1);

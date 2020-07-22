@@ -1,5 +1,12 @@
-const BASE_URL = 'http://pokeapi.salestock.net/api/v2/pokemon/';
-const LIMIT    = 5;
+const BASE_URL           = 'http://pokeapi.salestock.net/api/v2/pokemon/';
+const BASE_URL_EVOLUTION = 'http://pokeapi.salestock.net/api/v2/pokemon-species/';
+const LIMIT              = 5;
+
+/**
+ * Helper class used as a service to group the interaction with the PokeAPI.
+ * This class has to be used as a Singleton:
+ *   PokemonService.getInstance()
+ */
 
 class PokemonService {
 
@@ -13,11 +20,19 @@ class PokemonService {
     return PokemonService.instance;
   }
 
+
+  /**
+   * Fetch a list of pokemons from PokeAPI.
+   * If a name is provided, finds only one Pokemon which has that name.
+   * 
+   * @param {String} name 
+   */ 
+
   getPokemons( name ) {
     name = name.trim().toLowerCase();
 
     let apiURL = BASE_URL;
-    if( name !== '' ) {
+    if( !!name && name !== '' ) {
       apiURL += name + '/';
     }
 
@@ -32,7 +47,14 @@ class PokemonService {
       });
   }
 
-  getPokemon( id ) {
+
+  /**
+   * Fetch the name, image and type of a specific Pokemon from de PokeAPI.
+   * 
+   * @param {int} id The ID to identify the Pokemon at the PokeAPI
+   */
+
+  getPokemonData( id ) {
     return fetch( BASE_URL + `${id}/` )
       .then( response => response.json() )
       .then( data => {
@@ -44,6 +66,26 @@ class PokemonService {
           name:  data.name,
           image: data.sprites.front_default,
           kind:  kinds
+        };
+
+        return pokemonData;
+      })
+  }
+
+
+  /**
+   * Fetch the parent name of the Pokemon evolution line.
+   * 
+   * @param {int} id The ID to identify the Pokemon at the PokeAPI
+   */
+
+  getPokemonEvolution( id ) {
+    return fetch( BASE_URL_EVOLUTION + `${id}/` )
+      .then( response => response.json() )
+      .then( data => {
+        const pokemonData = {
+          id:          data.id,
+          evolvesFrom: data.evolves_from_species.name,
         };
 
         return pokemonData;
