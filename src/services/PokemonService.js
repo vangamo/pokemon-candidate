@@ -1,6 +1,7 @@
-const BASE_URL           = 'http://pokeapi.salestock.net/api/v2/pokemon/';
-const BASE_URL_EVOLUTION = 'http://pokeapi.salestock.net/api/v2/pokemon-species/';
-const LIMIT              = 811;
+const BASE_URL                   = 'http://pokeapi.salestock.net/api/v2/';
+const POKEMON_DATA_ENDPOINT      = 'pokemon/';
+const POKEMON_EVOLUTION_ENDPOINT = 'pokemon-species/';
+const LIMIT                      = 811;
 
 /**
  * Helper class used as a service to group the interaction with the PokeAPI.
@@ -23,19 +24,12 @@ class PokemonService {
 
   /**
    * Fetch a list of pokemons from PokeAPI.
-   * If a name is provided, finds only one Pokemon which has that name.
    * 
    * @param {String} name 
    */ 
 
-  getPokemons( name ) {
-    name = name.trim().toLowerCase();
-
-    let apiURL = BASE_URL;
-
-    if( name !== '' ) {
-      apiURL += name + '/';
-    }
+  getPokemons() {
+    let apiURL = BASE_URL + POKEMON_DATA_ENDPOINT;
 
     apiURL += '?limit=' + LIMIT;
 
@@ -61,7 +55,7 @@ class PokemonService {
    */
 
   getPokemonData( id ) {
-    return fetch( BASE_URL + `${id}/` )
+    return fetch( BASE_URL + POKEMON_DATA_ENDPOINT + `${id}/` )
       .then( response => response.json() )
       .then( data => {
         const sortedTypes = data.types.sort( (first, second) => first.slot > second.slot );
@@ -86,7 +80,7 @@ class PokemonService {
    */
 
   getPokemonEvolution( id ) {
-    return fetch( BASE_URL_EVOLUTION + `${id}/` )
+    return fetch( BASE_URL + POKEMON_EVOLUTION_ENDPOINT + `${id}/` )
       .then( response => response.json() )
       .then( data => {
         const pokemonData = {

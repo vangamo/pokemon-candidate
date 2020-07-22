@@ -66,7 +66,7 @@ class App extends Component {
 
   componentDidMount() {
     PokemonService.getInstance()
-    .getPokemons( '' )
+    .getPokemons()
     .then(  data  => {
       this.ALL_POKEMONS = data;
       this.filterPokemons();
