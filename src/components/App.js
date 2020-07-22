@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Route, Switch } from 'react-router-dom';
 import PokemonService from '../services/PokemonService';
 import SearchBox from './SearchBox';
 import Pile from './Pile';
@@ -86,7 +87,11 @@ class App extends Component {
       <section className="header">
         <SearchBox handleSearch={this.searchPokemons} searchText={this.state.searchText}/>
       </section>
-      <Pile pokemonList={this.state.pokemonList}/>
+      <Switch>
+        <Route exact path="/" render={ (routerProps) => (
+          <Pile pokemonList={this.state.pokemonList}/>
+        )} />
+      </Switch>
     </div>
     );
   }
