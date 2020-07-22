@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PokemonService from '../services/PokemonService';
 import SearchBox from './SearchBox';
 import Pile from './Pile';
 import '../stylesheets/App.scss';
@@ -8,8 +9,16 @@ class App extends Component {
     super(props);
 
     this.state = {
-      searchText: ''
+      searchText: '',
+      pokemonList: []
     }
+  }
+
+  componentDidMount() {
+    PokemonService.getInstance()
+      .getPokemons( this.state.searchText )
+      .then(  data  => { this.setState( {pokemonList: data} ); })
+      .catch( error => { console.error(error); });
   }
 
   render() {
@@ -18,7 +27,7 @@ class App extends Component {
       <section className="header">
         <SearchBox searchText={this.state.searchText}/>
       </section>
-      <Pile searchText={this.state.searchText}/>
+      <Pile pokemonList={this.state.pokemonList}/>
     </div>
     );
   }
