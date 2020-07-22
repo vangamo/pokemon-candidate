@@ -70,8 +70,7 @@ const useFetchPokemon = (id) => {
  */
 
 const Card = (props) => {
-  const pkId = props.uri.substr(-2,1);
-  const pokemonData = useFetchPokemon(pkId);
+  const pokemonData = useFetchPokemon( props.id );
 
   const kindList = pokemonData.kind.map( kind => (
     <span key={kind}>{kind}</span>

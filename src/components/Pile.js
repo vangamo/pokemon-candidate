@@ -10,7 +10,7 @@ import '../stylesheets/Pile.scss';
  */
 const Pile = (props) => {
   const cards = props.pokemonList.map( pokemon => (
-    <Card key={pokemon.uri} uri={pokemon.uri} name={pokemon.name}></Card>
+    <Card key={pokemon.id} id={pokemon.id} name={pokemon.name}></Card>
   ));
 
   return (

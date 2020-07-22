@@ -1,6 +1,6 @@
 const BASE_URL           = 'http://pokeapi.salestock.net/api/v2/pokemon/';
 const BASE_URL_EVOLUTION = 'http://pokeapi.salestock.net/api/v2/pokemon-species/';
-const LIMIT              = 5;
+const LIMIT              = 811;
 
 /**
  * Helper class used as a service to group the interaction with the PokeAPI.
@@ -32,7 +32,8 @@ class PokemonService {
     name = name.trim().toLowerCase();
 
     let apiURL = BASE_URL;
-    if( !!name && name !== '' ) {
+
+    if( name !== '' ) {
       apiURL += name + '/';
     }
 
@@ -41,7 +42,12 @@ class PokemonService {
     return fetch( apiURL )
       .then(response => response.json())
       .then(data => {
-        const filteredData = data.results.map( pokemon => ({ name: pokemon.name, uri: pokemon.url }) );
+        const filteredData = data.results.map( pokemon => {
+          const lastSlashPos = pokemon.url.lastIndexOf( '/', pokemon.url.length-2 );
+          const pokemonId    = pokemon.url.substring( lastSlashPos+1, pokemon.url.length-1 );
+
+          return { id: pokemonId, name: pokemon.name };
+        });
 
         return filteredData;
       });
