@@ -14,7 +14,7 @@ class Pile extends Component {
 
   componentDidMount() {
     PokemonService.getInstance()
-      .getPokemons()
+      .getPokemons( this.props.searchText )
       .then(  data  => { this.setState( {pokemonList: data} ); })
       .catch( error => { console.error(error); });
   }
