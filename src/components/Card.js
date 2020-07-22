@@ -30,12 +30,12 @@ const useFetchPokemon = (id) => {
   return pokemonData;
 }
 
-const App = (props) => {
+const Card = (props) => {
   const pkId = props.uri.substr(-2,1);
   const pokemonData = useFetchPokemon(pkId);
 
   const kindList = pokemonData.kind.map( kind => (
-    <span>{kind}</span>
+    <span key={kind}>{kind}</span>
   ));
 
   return (
@@ -62,4 +62,4 @@ const App = (props) => {
   );
 }
 
-export default App;
+export default Card;
