@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from "react-router-dom";
 import PokemonService from '../services/PokemonService';
-import '../stylesheets/Card.scss';
+import '../stylesheets/Details.scss';
 
 /**
  * Helper function to capitalize a string.
@@ -70,13 +70,14 @@ const useFetchPokemon = (id, name) => {
  * @param {*} props 
  */
 
-const Card = (props) => {
-  const pokemonData = useFetchPokemon( props.id, props.name );
+const Details = (props) => {
+  const [pokemonId, pokemonName] = props.match.params.key.split('-');
+  const pokemonData = useFetchPokemon( pokemonId, pokemonName );
 
   const history = useHistory();
 
-  function handleClick() {
-    history.push( `/details/${props.id}-${props.name}`  );
+  function handleClickGoBack() {
+    history.push( '/' );
   }
 
   const kindList = pokemonData.kind.map( kind => (
@@ -84,27 +85,32 @@ const Card = (props) => {
   ));
 
   return (
-    <article className="card" onClick={handleClick}>
-      <div className="greypart">
-        <div className="photo">
-          <img src={pokemonData.image} alt={'Imagen de ' + pokemonData.name} />
-        </div>
-        <span className="id">
-          ID / {pokemonData.id}
-        </span>
+    <section className="details">
+      <div className="breadcrumb">
+        <input type="button" className="back" value="Volver a la lista" onClick={handleClickGoBack} />
       </div>
-      <div className="whitepart">
-        <div className="name">{pokemonData.name}</div>
-        <div className="kind">{kindList}</div>
-        {!!pokemonData.evolvesFrom && (
-          <div className="evolution">
-            <div className="ttile">Evoluciona de:</div>
-            <div className="parent">EVOL</div>
+      <article className="card big">
+        <div className="greypart">
+          <div className="photo">
+            <img src={pokemonData.image} alt={'Imagen de ' + pokemonData.name} />
           </div>
-        )}
-      </div>
-    </article>
+          <span className="id">
+            ID / {pokemonData.id}
+          </span>
+        </div>
+        <div className="whitepart">
+          <div className="name">{pokemonData.name}</div>
+          <div className="kind">{kindList}</div>
+          {!!pokemonData.evolvesFrom && (
+            <div className="evolution">
+              <div className="ttile">Evoluciona de:</div>
+              <div className="parent">EVOL</div>
+            </div>
+          )}
+        </div>
+      </article>
+    </section>
   );
 }
 
-export default Card;
+export default Details;

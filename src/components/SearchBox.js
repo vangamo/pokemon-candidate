@@ -37,7 +37,7 @@ class SearchBox extends Component {
     else {
       this.keyPressedTimeout = setTimeout(
         () => { this.launchSearch(); },
-        100
+        300
         );
     }
   }

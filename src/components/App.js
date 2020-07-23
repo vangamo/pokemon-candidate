@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import PokemonService from '../services/PokemonService';
 import SearchBox from './SearchBox';
 import Pile from './Pile';
+import Details from './Details';
 import '../stylesheets/App.scss';
 
 /**
@@ -35,6 +37,9 @@ class App extends Component {
 
   searchPokemons( text ) {
     this.setState( { searchText: text }, () => { this.filterPokemons(); } );
+    if( this.props.history.location.pathname !== '/' ) {
+      this.props.history.push('/');
+    }
   }
 
 
@@ -86,10 +91,17 @@ class App extends Component {
       <section className="header">
         <SearchBox handleSearch={this.searchPokemons} searchText={this.state.searchText}/>
       </section>
-      <Pile pokemonList={this.state.pokemonList}/>
+      <Switch>
+        <Route exact path="/" render={ (routerProps) => (
+          <Pile pokemonList={this.state.pokemonList}/>
+        )} />
+        <Route exact path="/details/:key" render={ (routerProps) => (
+          <Details match={routerProps.match}/>
+        )} />
+      </Switch>
     </div>
     );
   }
 }
 
-export default App;
+export default withRouter( App );
