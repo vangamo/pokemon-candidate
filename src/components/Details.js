@@ -36,26 +36,34 @@ const useFetchPokemon = (id, name) => {
   });
 
   useEffect(() => {
+    let isComponentMounted = true;
+
     PokemonService.getInstance()
       .getPokemonData( id )
       .then( data => {
-        setPokemonData({
-          ...pokemonData,
-          ...data,
-          name: capitalize( data.name )
-        });
+        if( isComponentMounted ) {
+          setPokemonData({
+            ...pokemonData,
+            ...data,
+            name: capitalize( data.name )
+          });
+        }
       })
       .catch(error => {console.error(error);});
 
       PokemonService.getInstance()
         .getPokemonEvolution( id )
         .then( data => {
-          setPokemonData({
-            ...pokemonData,
-            ...data
-          });
+          if( isComponentMounted ) {
+            setPokemonData({
+              ...pokemonData,
+              ...data
+            });
+          }
         })
         .catch(error => {console.error(error);});
+
+      return () => { isComponentMounted = false; };
   });
 
   return pokemonData;
