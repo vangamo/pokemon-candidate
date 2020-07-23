@@ -1,4 +1,4 @@
-const BASE_URL                   = 'http://pokeapi.salestock.net/api/v2/';
+const BASE_URL                   = 'https://pokeapi.co/api/v2/';
 const POKEMON_DATA_ENDPOINT      = 'pokemon/';
 const POKEMON_EVOLUTION_ENDPOINT = 'pokemon-species/';
 const LIMIT                      = 811;
