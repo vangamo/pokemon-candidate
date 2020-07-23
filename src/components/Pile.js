@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Card from './Card';
 import '../stylesheets/Pile.scss';
+import IMG_ERROR from '../images/pika-error.gif';
 
 /**
  * Prints the list of selected Pokemon cards.
@@ -16,17 +17,24 @@ const Pile = (props) => {
 
   return (
     <section className="pile">
-      {cards}
+      { (props.state === 'loading')   && (<div className="message">Cargando datos...</div>) }
+      { (props.state === 'filtering') && (<div className="message">Filtrando Pokémons...</div>) }
+      { (props.state === 'done')      && (cards) }
+      { (props.state === 'error')     && (<div className="error"><div>Hemos tenido un error de conexión</div><img src={IMG_ERROR} alt="Pikachu asustado por la situación" /></div>) }
     </section>
   );
 };
 
+const STATE_VALUES = [ 'loading', 'filtering', 'done', 'error' ];
+
 Pile.propTypes = {
-  pokemonList: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired
+  pokemonList: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
+  state:       PropTypes.oneOf(STATE_VALUES)
 };
 
 Pile.defaultProps = {
   // pokemonList isRequired
+  state: 'loading'
 };
 
 export default Pile;

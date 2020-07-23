@@ -1,3 +1,7 @@
 @import 'consts';
 
 .pile { display:flex; flex-flow: row wrap; justify-content: center; width: $mainSectionWidth; margin: 2em auto }
+
+.message   { font-size: $titleFontSize; }
+.error     { font-size: $titleFontSize; color: $redPikachu; text-align: center; }
+.error img { width: 250px; border: 2px solid $yellowPikachu; border-radius: 10px; }

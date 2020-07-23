@@ -21,7 +21,8 @@ class App extends Component {
 
     this.state = {
       searchText: '',
-      pokemonList: []
+      pokemonList: [],
+      dataState: 'loading'
     }
 
     this.searchPokemons = this.searchPokemons.bind( this );
@@ -52,14 +53,15 @@ class App extends Component {
 
   filterPokemons() {
     const cleanText = this.state.searchText.trim().toLowerCase();
+    this.setState( {dataState: 'filtering'} );
 
     if( cleanText === '' ) {
-      this.setState( { pokemonList: this.ALL_POKEMONS.slice( 0, 6 ) } )
+      this.setState( { pokemonList: this.ALL_POKEMONS.slice( 0, 6 ), dataState: 'done' } )
     }
     else {
       const matchExpression  = RegExp( cleanText, 'gi' );
       const filteredPokemons = this.ALL_POKEMONS.filter( (pokemonData) => matchExpression.test( pokemonData.name ) );
-      this.setState( { pokemonList: filteredPokemons } )
+      this.setState( { pokemonList: filteredPokemons, dataState: 'done' } )
     }
   }
 
@@ -76,7 +78,9 @@ class App extends Component {
       this.ALL_POKEMONS = data;
       this.filterPokemons();
     })
-    .catch( error => { console.error(error); });  
+    .catch( error => {
+      this.setState( {dataState: 'error'} );
+     });
   }
 
 
@@ -93,7 +97,7 @@ class App extends Component {
       </section>
       <Switch>
         <Route exact path="/" render={ (routerProps) => (
-          <Pile pokemonList={this.state.pokemonList}/>
+          <Pile pokemonList={this.state.pokemonList} state={this.state.dataState}/>
         )} />
         <Route exact path="/details/:key" render={ (routerProps) => (
           <Details match={routerProps.match}/>
