@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import PokemonService from '../services/PokemonService';
 import SearchBox from './SearchBox';
 import Pile from './Pile';
+import Details from './Details';
 import '../stylesheets/App.scss';
 
 /**
@@ -90,6 +91,9 @@ class App extends Component {
       <Switch>
         <Route exact path="/" render={ (routerProps) => (
           <Pile pokemonList={this.state.pokemonList}/>
+        )} />
+        <Route exact path="/details/:key" render={ (routerProps) => (
+          <Details match={routerProps.match}/>
         )} />
       </Switch>
     </div>

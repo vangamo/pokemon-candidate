@@ -1,0 +1,7 @@
+@import 'consts';
+
+.details .breadcrumb { position: relative; height: 2em; }
+.details .back       { position: absolute; right: 0; border: solid 2px $redPikachu; border-radius: 7px; font-size: $normalFontSize; font-weight: bold; background: none; color: $redPikachu; cursor: pointer; }
+
+.details       { width: 70%; margin: 2em auto; }
+.details .card { width: 100%; cursor: default; }
