@@ -13,6 +13,8 @@ import '../stylesheets/App.scss';
  * 
  */
 
+const MAX_POKEMON_MAIN_PAGE = 12;
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -56,7 +58,7 @@ class App extends Component {
     this.setState( {dataState: 'filtering'} );
 
     if( cleanText === '' ) {
-      this.setState( { pokemonList: this.ALL_POKEMONS.slice( 0, 6 ), dataState: 'done' } )
+      this.setState( { pokemonList: this.ALL_POKEMONS.slice( 0, MAX_POKEMON_MAIN_PAGE ), dataState: 'done' } )
     }
     else {
       const matchExpression  = RegExp( cleanText, 'gi' );
