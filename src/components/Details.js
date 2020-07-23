@@ -1,74 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { useHistory } from "react-router-dom";
-import PokemonService from '../services/PokemonService';
+import { withRouter } from "react-router-dom";
+import CardParent, { capitalize } from './CardParent';
+import PokemonImage from './PokemonImage';
+import PokemonData  from './PokemonData';
 import '../stylesheets/Details.scss';
-
-/**
- * Helper function to capitalize a string.
- * I.E.
- *   capitalize( 'text' )  --> 'Text'
- * 
- * @param {String} text 
- */
-
-function capitalize( text ) {
-  return text.charAt(0).toUpperCase() + text.substr(1).toLowerCase()
-}
-
-
-/**
- * Hook to double fetch the Pokemon data using PokemonService.
- * It has to take Pokemon data from two endpoints:
- *  - /pokemon/         For the sprite image and kind of the Pokemon
- *  - /pokemon-species/ For the evolution data
- * 
- * @param {int} id It's the numeric ID (set by API) of the Pokemon to fetch.
- */
-
-const useFetchPokemon = (id, name) => {
-  const [pokemonData, setPokemonData] = useState({
-    id: id,
-    name: capitalize(name),
-    imageURI: '',
-    kind: [],
-    evolvesFrom: null
-  });
-
-  useEffect(() => {
-    let isComponentMounted = true;
-
-    PokemonService.getInstance()
-      .getPokemonData( id )
-      .then( data => {
-        if( isComponentMounted ) {
-          setPokemonData({
-            ...pokemonData,
-            ...data,
-            name: capitalize( data.name )
-          });
-        }
-      })
-      .catch(error => {console.error(error);});
-
-      PokemonService.getInstance()
-        .getPokemonEvolution( id )
-        .then( data => {
-          if( isComponentMounted ) {
-            setPokemonData({
-              ...pokemonData,
-              ...data
-            });
-          }
-        })
-        .catch(error => {console.error(error);});
-
-      return () => { isComponentMounted = false; };
-  });
-
-  return pokemonData;
-}
-
 
 /**
  * Prints a single card with the Pokemon details filling all the with of the page.
@@ -76,50 +12,49 @@ const useFetchPokemon = (id, name) => {
  *  - Grey part with the image and ID.
  *  - White part with the name, type and evolves from info.
  * 
- * @param {*} props 
  */
 
-const Details = (props) => {
-  const [pokemonId, pokemonName] = props.match.params.key.split('-');
-  const pokemonData = useFetchPokemon( pokemonId, pokemonName );
+class Details extends CardParent {
+  constructor( props ) {
+    super(props);
 
-  const history = useHistory();
+    const [pokemonId, pokemonName] = props.match.params.key.split('-');
 
-  function handleClickGoBack() {
-    history.push( '/' );
+    this.state.id   = pokemonId;
+    this.state.name = capitalize(pokemonName);
+
+    this.handleClickGoBack = this.handleClickGoBack.bind( this );
   }
 
-  const kindList = pokemonData.kind.map( kind => (
-    <span key={kind}>{kind}</span>
-  ));
+  /**
+   * When the user clicks on the go back button this function loads the search page.
+   */
 
-  return (
-    <section className="details">
-      <div className="breadcrumb">
-        <input type="button" className="back" value="Volver a la lista" onClick={handleClickGoBack} />
-      </div>
-      <article className="card big">
-        <div className="greypart">
-          <div className="photo">
-            <img src={pokemonData.imageURI} alt={ (pokemonData.imageURI==='') ? `Cargando imagen de ${pokemonData.name}` : `Imagen de ${pokemonData.name}`} />
-          </div>
-          <span className="id">
-            ID / {pokemonData.id}
-          </span>
+  handleClickGoBack() {
+    this.props.history.push( '/' );
+  }
+
+  /**
+   * Prints data.
+   *
+   */
+
+  render() {
+    const pokemonData = this.state;
+    const kindList    = this.printKindList();
+
+    return (
+      <section className="details">
+        <div className="breadcrumb">
+          <input type="button" className="back" value="Volver a la lista" onClick={this.handleClickGoBack} />
         </div>
-        <div className="whitepart">
-          <div className="name">{pokemonData.name}</div>
-          <div className="kind">{kindList}</div>
-          {!!pokemonData.evolvesFrom && (
-            <div className="evolution">
-              <div className="ttile">Evoluciona de:</div>
-              <div className="parent">EVOL</div>
-            </div>
-          )}
-        </div>
-      </article>
-    </section>
-  );
+        <article className="card big">
+          <PokemonImage name={pokemonData.name} id={pokemonData.id} imageURI={pokemonData.imageURI} />
+          <PokemonData  name={pokemonData.name} kinds={kindList}    evolvesFrom={pokemonData.evolvesFrom} />
+        </article>
+      </section>
+    );
+  }
 }
 
 Details.propTypes = {
@@ -130,4 +65,4 @@ Details.defaultProps = {
   // match isRequired
 };
 
-export default Details;
+export default withRouter( Details );
