@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useHistory } from "react-router-dom";
 import PokemonService from '../services/PokemonService';
 import '../stylesheets/Details.scss';
@@ -62,7 +63,7 @@ const useFetchPokemon = (id, name) => {
 
 
 /**
- * Prints a single card with the Pokemon data.
+ * Prints a single card with the Pokemon details filling all the with of the page.
  * It has two parts:
  *  - Grey part with the image and ID.
  *  - White part with the name, type and evolves from info.
@@ -112,5 +113,13 @@ const Details = (props) => {
     </section>
   );
 }
+
+Details.propTypes = {
+  match:   PropTypes.object.isRequired
+};
+
+Details.defaultProps = {
+  // match isRequired
+};
 
 export default Details;

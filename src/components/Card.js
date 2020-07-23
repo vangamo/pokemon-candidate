@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useHistory } from "react-router-dom";
 import PokemonService from '../services/PokemonService';
 import '../stylesheets/Card.scss';
@@ -106,5 +107,15 @@ const Card = (props) => {
     </article>
   );
 }
+
+Card.propTypes = {
+  id:   PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired
+};
+
+Card.defaultProps = {
+  // id,name isRequired
+};
+
 
 export default Card;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Card from './Card';
 import '../stylesheets/Pile.scss';
 
@@ -18,6 +19,14 @@ const Pile = (props) => {
       {cards}
     </section>
   );
+};
+
+Pile.propTypes = {
+  pokemonList: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired
+};
+
+Pile.defaultProps = {
+  // pokemonList isRequired
 };
 
 export default Pile;
