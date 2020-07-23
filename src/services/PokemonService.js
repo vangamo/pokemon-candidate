@@ -62,10 +62,10 @@ class PokemonService {
         const kinds = sortedTypes.map( eachType => eachType.type.name );
 
         const pokemonData = {
-          id:    data.id,
-          name:  data.name,
-          image: data.sprites.front_default,
-          kind:  kinds
+          id:       data.id,
+          name:     data.name,
+          imageURI: data.sprites.front_default,
+          kind:     kinds
         };
 
         return pokemonData;

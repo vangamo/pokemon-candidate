@@ -88,7 +88,7 @@ const Card = (props) => {
     <article className="card" onClick={handleClick}>
       <div className="greypart">
         <div className="photo">
-          <img src={pokemonData.image} alt={'Imagen de ' + pokemonData.name} />
+          <img src={pokemonData.imageURI} alt={ (pokemonData.imageURI==='') ? `Cargando imagen de ${pokemonData.name}` : `Imagen de ${pokemonData.name}`} />
         </div>
         <span className="id">
           ID / {pokemonData.id}
