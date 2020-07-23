@@ -83,6 +83,10 @@ class PokemonService {
     return fetch( BASE_URL + POKEMON_EVOLUTION_ENDPOINT + `${id}/` )
       .then( response => response.json() )
       .then( data => {
+        if( !data.evolves_from_species ) {
+          return null;
+        }
+
         const pokemonData = {
           id:          data.id,
           evolvesFrom: data.evolves_from_species.name,
