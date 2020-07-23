@@ -1,0 +1,9 @@
+@import 'consts';
+
+.card .whitepart { background-color: $cardWhitePart; padding: 1em; }
+
+.card .name      { margin: 0.2em; font-size: $titleFontSize; font-weight: bold; }
+.card .kind      { margin: 0.4em 0.2em; font-size: $taggingFontSize; color: $lightText; }
+.card .kind span { margin-right: 0.2em; border: solid $lightText 1px; border-radius: 3px; padding: 0.1em 0.2em; text-transform: uppercase; }
+.card .evolution { margin: 0.5em 0.2em; border-left: solid $redPikachu 3px; padding: 0.2em; }
+.card .parent    { font-size: $titleFontSize; text-transform: lowercase; }

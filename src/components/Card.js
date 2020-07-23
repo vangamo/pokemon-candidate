@@ -1,20 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from "react-router-dom";
-import PokemonService from '../services/PokemonService';
+import CardParent, { capitalize } from './CardParent';
+import PokemonImage from './PokemonImage';
+import PokemonData  from './PokemonData';
 import '../stylesheets/Card.scss';
-
-/**
- * Helper function to capitalize a string.
- * I.E.
- *   capitalize( 'text' )  --> 'Text'
- * 
- * @param {String} text 
- */
-
-function capitalize( text ) {
-  return text.charAt(0).toUpperCase() + text.substr(1).toLowerCase()
-}
 
 /**
  * Prints a single card with the Pokemon data.
@@ -24,71 +14,14 @@ function capitalize( text ) {
  * 
  */
 
-class Card extends Component {
+class Card extends CardParent {
   constructor( props ) {
-    super( props );
+    super( props );  // Create the state
 
-    this.state = {
-      id: props.id,
-      name: capitalize(props.name),
-      imageURI: '',
-      kind: [],
-      evolvesFrom: null
-    };
-
-    this.isComponentMounted = true;
+    this.state.id   = props.id;
+    this.state.name = capitalize( props.name );
 
     this.handleClick = this.handleClick.bind( this );
-  }
-
-  /**
-   * Use DidMount to double fetch the Pokemon data using PokemonService.
-   * It has to take Pokemon data from two endpoints:
-   *  - /pokemon/         For the sprite image and kind of the Pokemon
-   *  - /pokemon-species/ For the evolution data
-   * This data is stored in the state.
-   * This function uses a hack inside the fetch process to prevent memory
-   * leaks due to lost information when the fetch response arrives too late.
-   * It checks if the component has been unmount before assign the data.
-   *
-   */
-
-  componentDidMount() {
-    const pokemonId = this.props.id;
-
-    PokemonService.getInstance()
-      .getPokemonData( pokemonId )
-      .then( data => {
-        if( this.isComponentMounted ) {
-          this.setState({
-            ...this.state,
-            ...data,
-            name: capitalize( data.name )
-          });
-        }
-      })
-      .catch(error => {console.error(error);});
-
-    PokemonService.getInstance()
-      .getPokemonEvolution( pokemonId )
-      .then( data => {
-        if( this.isComponentMounted ) {
-          this.setState({
-            ...this.state,
-            ...data
-          });
-        }
-      })
-      .catch(error => {console.error(error);});
-  }
-
-  /**
-   * Completes the hack used in the fetch functions into componentDidMount().
-   * 
-   */
-
-   componentWillUnmount() {
-    this.isComponentMounted = false;
   }
 
   /**
@@ -106,30 +39,12 @@ class Card extends Component {
 
   render() {
     const pokemonData = this.state;
-    const kindList    = pokemonData.kind.map( kind => (
-      <span key={kind}>{kind}</span>
-    ));
+    const kindList    = this.printKindList();
   
     return (
       <article className="card" onClick={this.handleClick}>
-        <div className="greypart">
-          <div className="photo">
-            <img src={pokemonData.imageURI} alt={ (pokemonData.imageURI==='') ? `Cargando imagen de ${pokemonData.name}` : `Imagen de ${pokemonData.name}`} />
-          </div>
-          <span className="id">
-            ID / {pokemonData.id}
-          </span>
-        </div>
-        <div className="whitepart">
-          <div className="name">{pokemonData.name}</div>
-          <div className="kind">{kindList}</div>
-          {!!pokemonData.evolvesFrom && (
-            <div className="evolution">
-              <div className="ttile">Evoluciona de:</div>
-              <div className="parent">EVOL</div>
-            </div>
-          )}
-        </div>
+        <PokemonImage name={pokemonData.name} id={pokemonData.id} imageURI={pokemonData.imageURI} />
+        <PokemonData  name={pokemonData.name} kinds={kindList}    evolvesFrom={pokemonData.evolvesFrom} />
       </article>
     );
   }
