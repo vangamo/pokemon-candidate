@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "./static/css/main.f8e34228.chunk.css",
+    "main.js": "./static/js/main.bbe22937.chunk.js",
+    "main.js.map": "./static/js/main.bbe22937.chunk.js.map",
+    "runtime-main.js": "./static/js/runtime-main.8a57af4e.js",
+    "runtime-main.js.map": "./static/js/runtime-main.8a57af4e.js.map",
+    "static/js/2.d36e90f9.chunk.js": "./static/js/2.d36e90f9.chunk.js",
+    "static/js/2.d36e90f9.chunk.js.map": "./static/js/2.d36e90f9.chunk.js.map",
+    "index.html": "./index.html",
+    "precache-manifest.8968739062659c65456d7783e49d9477.js": "./precache-manifest.8968739062659c65456d7783e49d9477.js",
+    "service-worker.js": "./service-worker.js",
+    "static/css/main.f8e34228.chunk.css.map": "./static/css/main.f8e34228.chunk.css.map",
+    "static/js/2.d36e90f9.chunk.js.LICENSE.txt": "./static/js/2.d36e90f9.chunk.js.LICENSE.txt",
+    "static/media/pika-error.gif": "./static/media/pika-error.6cc7b065.gif"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.8a57af4e.js",
+    "static/js/2.d36e90f9.chunk.js",
+    "static/css/main.f8e34228.chunk.css",
+    "static/js/main.bbe22937.chunk.js"
+  ]
+}
